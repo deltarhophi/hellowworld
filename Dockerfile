@@ -12,4 +12,4 @@ COPY . .
 
 # Commande de lancement – tu peux choisir le script que tu veux exécuter
 # Exemple : exécuter db_test.py puis hello_log.py
-CMD ["sh", "-c", "python db_test.py && python hello_log.py"]
+CMD ["python", "db_test.py"]
