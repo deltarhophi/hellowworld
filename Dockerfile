@@ -2,7 +2,7 @@
 # Image de base légère contenant Python 3.11
 # -------------------------------------------------
 FROM python:3.11-slim
-
+ 
 # Répertoire de travail dans le conteneur
 WORKDIR /app
 
