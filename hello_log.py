@@ -1,24 +1,39 @@
+# db_test.py
 import os
-import time
 import sys
+import time
+import psycopg2
+from psycopg2 import sql
 
-def main() -> None:
-    # Nom de la variable telle qu’elle apparaît dans Northflank
-    VAR_NAME = "NF_PLAN_ID"          # ← remplacez par le vrai nom
+def get_connection():
+    """Construit la DSN à partir des variables d’environnement."""
+    conn = psycopg2.connect(
+        host=os.getenv("HOST"),
+        port=os.getenv("PORT", "5432"),
+        dbname=os.getenv("DATABASE"),
+        user=os.getenv("USERNAME"),
+        password=os.getenv("PASSWORD")
+    )
+    return conn
 
-    # Récupération de la valeur (ou d’une valeur de secours si elle n’est pas définie)
-    valeur = os.getenv(VAR_NAME, "<non définie>")
-    print(f"Valeur de {VAR_NAME} : {valeur}", flush=True)
+def main():
+    try:
+        conn = get_connection()
+        cur = conn.cursor()
+        cur.execute(sql.SQL("SELECT CURRENT_TIMESTAMP"))
+        ts = cur.fetchone()[0]
+        print(f"Timestamp actuel depuis PostgreSQL : {ts}", flush=True)
 
-    # Le reste de votre logique
-    print("Hello, World!", flush=True)
-    for i in range(60):
-        time.sleep(1)
-        print(f"[{i+1}s] Still alive…", flush=True)
+        # Optionnel : garder le conteneur vivant comme ton script original
+        for i in range(10):
+            time.sleep(1)
+            print(f"[{i+1}s] still alive…", flush=True)
+
+        cur.close()
+        conn.close()
+    except Exception as e:
+        print(f"Erreur : {e}", file=sys.stderr, flush=True)
+        sys.exit(1)
 
 if __name__ == "__main__":
-    try:
-        main()
-    except KeyboardInterrupt:
-        print("\nReceived stop signal – exiting.", flush=True)
-        sys.exit(0)
+    main()
