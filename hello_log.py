@@ -8,7 +8,7 @@ def main() -> None:
 
     # Garder le conteneur actif pendant quelques secondes
     # (sinon le conteneur s’arrête immédiatement et les logs disparaissent)
-    for i in range(30):                         # 30 itérations → ~30 s
+    for i in range(60):                         # 30 itérations → ~30 s
         time.sleep(1)
         print(f"[{i+1}s] Still alive…", flush=True)
 
