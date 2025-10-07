@@ -17,13 +17,13 @@ def get_connection():
     # on fournit un fallback vers les noms courts au cas où tu les aurais
     # ajoutés manuellement.
     conn = psycopg2.connect(
-        host=os.getenv("NF_HELLO_ADDON_PSQL_HOST") or os.getenv("DB_HOST"),
-        port=os.getenv("NF_HELLO_ADDON_PSQL_PORT") or os.getenv("DB_PORT", "5432"),
-        dbname=os.getenv("NF_HELLO_ADDON_PSQLL_DATABASE") or os.getenv("DB_NAME"),
-        user=os.getenv("NF_HELLO_ADDON_PSQL_USERNAME") or os.getenv("DB_USER"),
-        password=os.getenv("NF_HELLO_ADDON_PSQL_PASSWORD") or os.getenv("DB_PASSWORD"),
+        host=os.getenv("NF_HELLO_PSQL_A_HOST") or os.getenv("DB_HOST"),
+        port=os.getenv("NF_HELLO_PSQL_A_PORT") or os.getenv("DB_PORT", "5432"),
+        dbname=os.getenv("NF_HELLO_PSQL_A_DATABASE") or os.getenv("DB_NAME"),
+        user=os.getenv("NF_HELLO_PSQL_A_USERNAME") or os.getenv("DB_USER"),
+        password=os.getenv("NF_HELLO_PSQL_A_PASSWORD") or os.getenv("DB_PASSWORD"),
         # Si TLS est activé, on demande à psycopg2 d’utiliser SSL.
-        sslmode="require" if os.getenv("NF_HELLO_ADDON_PSQL_TLS_ENABLED", "false").lower() == "true"
+        sslmode="require" if os.getenv("NF_HELLO_PSQL_A_TLS_ENABLED", "false").lower() == "true"
         else "disable",
     )
     return conn
