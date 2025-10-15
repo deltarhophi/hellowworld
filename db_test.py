@@ -57,7 +57,7 @@ def main():
         wait_for_db()                     # <-- attend que le service soit up
         conn = get_connection()
         cur = conn.cursor()
-        cur.execute(sql.SQL("SELECT CURRENT_TIMESTAMP"))
+        cur.execute(sql.SQL("SELECT CURRENT_TIMESTAMP, 'hello'"))
         ts = cur.fetchone()[0]
         print(f"Timestamp actuel depuis PostgreSQL : {ts}", flush=True)
 
