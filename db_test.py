@@ -58,7 +58,7 @@ def main():
         conn = get_connection()
         cur = conn.cursor()
         cur.execute(sql.SQL("SELECT CURRENT_TIMESTAMP, 'hello'"))
-        ts = cur.fetchone()[0]
+        ts = cur.fetchone()[1]
         print(f"Timestamp actuel depuis PostgreSQL : {ts}", flush=True)
 
         # Exemple de boucle de vie du conteneur (similaire à ton hello_log.py)
